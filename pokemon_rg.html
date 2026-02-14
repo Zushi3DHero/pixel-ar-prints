@@ -27,7 +27,7 @@
 
       // Optional: whitelist IDs (recommended so nobody requests arbitrary files)
       // Add your print IDs here
-      const ALLOWED = new Set(["eggman", "rat_race", "pokemon_tower", "pokemon_rg"]);
+      const ALLOWED = new Set(["eggman", "rat_race", "pokemon_tower", "pokemon_gr"]);
       if (!ALLOWED.has(id)) {
         alert("Unknown id");
         throw new Error("Unknown id: " + id);
@@ -74,7 +74,7 @@
 <body>
   <a-scene 
   id="scene"
-  mindar-image="imageTargetSrc: ./targets/rat_race.mind;" vr-mode-ui="enabled: false"
+  mindar-image="imageTargetSrc: ./targets/pokemon_rgmind;" vr-mode-ui="enabled: false"
     device-orientation-permission-ui="enabled: false">
     <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
     <a-assets>
