@@ -1,76 +1,21 @@
 <!doctype html>
 <html>
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="apple-mobile-web-app-capable" content="yes">
-
-  <!-- ONE A-Frame -->
-  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
-  <!-- ONE MindAR A-Frame binding -->
-  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const target = document.querySelector("#target");
-      const video  = document.querySelector("#eggman");
-
-      target.addEventListener("targetFound", () => {
-        console.log("target found");
-        video.play().catch(() => {});
-      });
-
-      target.addEventListener("targetLost", () => {
-        console.log("target lost");
-        video.pause();
-        video.currentTime = 0; // optional
-      });
-    });
-  </script>
-  <script>
-  window.addEventListener("load", () => {
-    const sceneEl = document.querySelector("a-scene");
-
-    sceneEl.addEventListener("arReady", () => {
-      console.log("✅ MindAR ready");
-    });
-
-    sceneEl.addEventListener("arError", (e) => {
-      console.error("❌ MindAR error", e);
-    });
-  });
-</script>
+  <meta charset="utf-8">
+  <title>Redirecting...</title>
 </head>
-
 <body>
-  <a-scene
-    mindar-image="imageTargetSrc: ./eggman.mind;"
-    vr-mode-ui="enabled: false"
-    device-orientation-permission-ui="enabled: false">
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
 
-    <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
-
-    <a-assets>
-      <video
-        id="eggman"
-        src="./eggman.mp4"
-        loop
-        playsinline
-        webkit-playsinline
-        preload="auto">
-      </video>
-    </a-assets>
-
-    <a-entity id="target" mindar-image-target="targetIndex: 0">
-      <a-video
-        id="anim"
-        src="#eggman"
-        position="0 0 0"
-        height="0.616"
-        width="1"
-        rotation="0 0 0">
-      </a-video>
-    </a-entity>
-
-  </a-scene>
+    if (!id) {
+      document.body.innerHTML = "Missing ?id= parameter.";
+    } else {
+      // Forward ALL params, not just id
+      const query = window.location.search;
+      window.location.replace(`${id}.html` + query);
+    }
+  </script>
 </body>
 </html>
