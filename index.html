@@ -27,7 +27,7 @@
 
       // Optional: whitelist IDs (recommended so nobody requests arbitrary files)
       // Add your print IDs here
-      const ALLOWED = new Set(["eggman", "rat_race", "pokemon_tower, pokemon_gr"]);
+      const ALLOWED = new Set(["eggman", "rat_race", "pokemon_tower", "pokemon_gr"]);
       if (!ALLOWED.has(id)) {
         alert("Unknown id");
         throw new Error("Unknown id: " + id);
@@ -44,6 +44,7 @@
       // ---- 4) Set video src dynamically ----
       const video = document.querySelector("#animVideo");
       video.src = videoPath;
+      video.load();
 
        // 🔥 THIS is what you want:
       const videoPlane = document.querySelector("#animPlane");
@@ -75,10 +76,10 @@
     device-orientation-permission-ui="enabled: false">
     <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
     <a-assets>
-      <video id="animVideo" autoplay loop="true" webkit-playsinline playsinline></video>
+      <video id="animVideo" src="./videos/eggman.mp4" autoplay loop="true" webkit-playsinline playsinline></video>
     </a-assets>
     <a-entity id="target" mindar-image-target="targetIndex: 0">
-      <a-video id="animPlane" src="#animVideo" position="0 0 0" rotation="0 0 0"></a-plane>
+      <a-video id="animPlane" src="#animVideo" position="0 0 0" rotation="0 0 0"></a-video>
     </a-entity>
   </a-scene>
 </body>
