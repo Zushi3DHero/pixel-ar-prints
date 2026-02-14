@@ -10,8 +10,48 @@
   <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.0/dist/mindar-image-aframe.prod.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
+      
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get("id");
+      const w  = parseFloat(params.get("w"));
+      const h  = parseFloat(params.get("h"));
+
+      if (!id) {
+        alert("Missing ?id=...  Example: ?id=eggman");
+        throw new Error("Missing id");
+      }
+
+      // Fallback defaults
+      const width  = (!isNaN(w) && w > 0) ? w : 1;
+      const height = (!isNaN(h) && h > 0) ? h : 1;
+
+      // Optional: whitelist IDs (recommended so nobody requests arbitrary files)
+      // Add your print IDs here
+      const ALLOWED = new Set(["eggman", "rat_race", "pokemon_tower, pokemon_gr"]);
+      if (!ALLOWED.has(id)) {
+        alert("Unknown id");
+        throw new Error("Unknown id: " + id);
+      }
+
+      // ---- 2) Build file paths ----
+      const mindPath = `./targets/${id}.mind`;
+      const videoPath = `./videos/${id}.mp4`;
+
+      // ---- 3) Apply MindAR target source ----
+      const scene = document.querySelector("a-scene");
+      scene.setAttribute("mindar-image", `imageTargetSrc: ${mindPath};`);
+
+      // ---- 4) Set video src dynamically ----
+      const video = document.querySelector("#animVideo");
+      video.src = videoPath;
+
+       // 🔥 THIS is what you want:
+      const videoPlane = document.querySelector("#animPlane");
+      videoPlane.setAttribute("width", width);
+      videoPlane.setAttribute("height", height);
+
+      
       const target = document.querySelector('#target');
-      const video = document.querySelector('#eggman');
 
       console.log(video);
 
@@ -35,10 +75,10 @@
     device-orientation-permission-ui="enabled: false">
     <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
     <a-assets>
-      <video id="eggman" src="./eggman.mp4" autoplay loop="true" webkit-playsinline playsinline></video>
+      <video id="animVideo" autoplay loop="true" webkit-playsinline playsinline></video>
     </a-assets>
     <a-entity id="target" mindar-image-target="targetIndex: 0">
-      <a-video id="anim" src="#eggman" position="0 0 0" height="0.616" width="1" rotation="0 0 0"></a-plane>
+      <a-video id="animPlane" src="#animVideo" position="0 0 0" rotation="0 0 0"></a-plane>
     </a-entity>
   </a-scene>
 </body>
