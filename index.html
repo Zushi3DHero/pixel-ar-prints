@@ -38,7 +38,7 @@
       const videoPath = `./videos/${id}.mp4`;
 
       // ---- 3) Apply MindAR target source ----
-      const scene = document.querySelector("#scene");
+      const scene = document.querySelector("a-scene");
       scene.setAttribute("mindar-image", `imageTargetSrc: ${mindPath};`);
 
       // ---- 4) Set video src dynamically ----
@@ -71,14 +71,11 @@
 </head>
 
 <body>
-  <a-scene
-    id="scene"
-    mindar-image="imageTargetSrc: ./targets/eggman.mind;"
-    vr-mode-ui="enabled: false"
+  <a-scene mindar-image="imageTargetSrc: ./targets/eggman.mind;" vr-mode-ui="enabled: false"
     device-orientation-permission-ui="enabled: false">
     <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
     <a-assets>
-      <video id="animVideo" src="./videos/eggman.mp4" autoplay loop="true" webkit-playsinline playsinline></video>
+      <video id="animVideo" autoplay loop="true" webkit-playsinline playsinline></video>
     </a-assets>
     <a-entity id="target" mindar-image-target="targetIndex: 0">
       <a-video id="animPlane" src="#animVideo" position="0 0 0" rotation="0 0 0"></a-plane>
