@@ -38,7 +38,7 @@
       const videoPath = `./videos/${id}.mp4`;
 
       // ---- 3) Apply MindAR target source ----
-      const scene = document.querySelector("a-scene");
+      const scene = document.querySelector("#scene");
       scene.setAttribute("mindar-image", `imageTargetSrc: ${mindPath};`);
 
       // ---- 4) Set video src dynamically ----
@@ -71,7 +71,8 @@
 </head>
 
 <body>
-  <a-scene 
+  <a-scene
+    id="scene"
     vr-mode-ui="enabled: false"
     device-orientation-permission-ui="enabled: false">
     <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
